@@ -1,5 +1,10 @@
 package server
 
+import (
+	"fmt"
+	"slices"
+)
+
 // Syncraft's Application store, maintaining server state
 type SyncraftFSM struct {
 	KVStore map[string]string
@@ -18,4 +23,9 @@ func (s *SyncraftFSM) TakeSnapshot() {
 // Apply a command to the FSM state
 func (s *SyncraftFSM) ApplyCommand(command *Command) {
 
+	if slices.Contains(CatalogCommands, command.Action) {
+		fmt.Println("Catalog command")
+	} else {
+		fmt.Println("Not a catalog command")
+	}
 }
